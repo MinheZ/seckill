@@ -8,9 +8,9 @@
         <!--使用 jdbc 的 getGeneratedKeys 获取数据库自增主键值-->
         <setting name="useGeneratedKeys" value="true"/>
         <!--使用列别名替换列名  默认 true-->
-        <setting name="userColumnLabel" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
         <!--开启驼峰命名转换：Table(creatTime)->Entity(createTime)-->
-        <setting name="mapUnderscoreCamelCase" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
 
     </settings>
 </configuration>

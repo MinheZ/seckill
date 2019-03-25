@@ -47,10 +47,15 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.1</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.9</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>c3p0</groupId>-->
+            <!--<artifactId>c3p0</artifactId>-->
+            <!--<version>0.9.1.1</version>-->
+        <!--</dependency>-->
 
         <!--  DAO 依赖： MyBatis 依赖-->
         <dependency>
@@ -92,17 +97,17 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <version>4.3.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <version>4.3.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <version>4.3.10.RELEASE</version>
         </dependency>
 
         <!-- Spring dao 层依赖-->
