@@ -1,27 +1,19 @@
 package com.seckill.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Seckill implements Serializable {
-    private Long seckillId;
-    private String name;
-    private int number;
-    private Date startTime;
-    private Date endTime;
-    private Date createTime;
+public class Seckill {
+    private Long seckillId;  //秒杀商品id
 
-    @Override
-    public String toString() {
-        return "Seckill{" +
-                "seckillId=" + seckillId +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", createTime=" + createTime +
-                '}';
-    }
+    private String name;  //秒杀商品名称
+
+    private Integer number; //秒杀商品库存数目
+
+    private Date createTime;  //秒杀单的创建时间
+
+    private Date startTime;  //秒杀商品开始时间
+
+    private Date endTime; //秒杀商品结束时间
 
     public Long getSeckillId() {
         return seckillId;
@@ -36,15 +28,23 @@ public class Seckill implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getStartTime() {
@@ -63,11 +63,16 @@ public class Seckill implements Serializable {
         this.endTime = endTime;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    @Override
+    public String toString() {
+        return "Seckill{" +
+                "seckillId=" + seckillId +
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", createTime=" + createTime +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
 }

@@ -75,8 +75,22 @@ jdbc.password=****
 
 ### 4.3 Service层开发
 
-新建一个 SeckillService 的接口，完成秒杀业务逻辑的一些方法。
+新建一个 [SeckillService](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/service/SeckillService.java) 的接口，完成秒杀业务逻辑的一些方法。
 
 业务逻辑为，当秒杀开始前，秒杀页面只显示秒杀商品类型和倒计时。只有当秒杀开始的时候，才暴露秒杀地址，防止脚本提前登录。
 
 定义一个 Exposer 类来实现此功能。
+
+<div align="center"><img src="pics//1553561741(1).png" width="500px"></div>
+
+详情页流程逻辑
+
+<div align="center"><img src="pics//1553561891(1).png" width="500px"></div>
+
+Restful 规范：
+
+- GET -> 查询操作
+- POST -> 添加/修改操作
+- PUT -> 修改操作（幂等操作）
+- DELETE -> 删除操作
+

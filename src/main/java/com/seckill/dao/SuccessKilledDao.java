@@ -3,30 +3,23 @@ package com.seckill.dao;
 import com.seckill.entity.SuccessKilled;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @program: seckill
- * @description:
- * @author: Mr.Wang
- * @create: 2019-03-25 14:23
- **/
-
 public interface SuccessKilledDao {
+
     /**
-     * @Description: 插入购买明细，可过滤重复 （联合唯一主键）
-     * @Param: [seckillId, userPhone]
-     * @return: int 插入的行数
-     * @Author: MinheZ
-     * @Date: 2019/3/25
-     **/
+     * 插入购买明细，可过滤重复
+     *
+     * @param seckillId
+     * @param userPhone
+     * @return 插入的行数，如果返回值<1则表示插入失败
+     */
     int insertSuccessKilled(@Param("seckillId") long seckillId, @Param("userPhone") long userPhone);
 
-    /**
-     * @Description: 根据 ID 查询 SuccessKilled 并携带 seckill 对象
-     * @Param: [seckillId]
-     * @return: com.seckill.entity.SuccessKilled
-     * @Author: MinheZ
-     * @Date: 2019/3/25
-     **/
-    SuccessKilled queryByIdWithSeckill(@Param("seckillId")long seckillId, @Param("userPhone") long userPhone);
 
+    /**
+     * 根据id查询SuccessKilled并携带秒杀商品对象实体
+     *
+     * @param seckillId
+     * @return
+     */
+    SuccessKilled queryByIdWithSeckill(@Param("seckillId") long seckillId, @Param("userPhone") long userPhone);
 }

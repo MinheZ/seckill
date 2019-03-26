@@ -1,15 +1,18 @@
 package com.seckill.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class SuccessKilled implements Serializable {
-    private Long seckillId;
-    private Long userPhone;
-    private short state;
-    private Date creatTime;
+public class SuccessKilled {
 
-    // 多对一
+    private short state; //用户秒杀商品状态
+
+    private Date createTime;   //用户秒杀商品时间
+
+    private Long seckillId;   //秒杀商品id
+
+    private Long userPhone;  //用户手机号
+
+    // 多对一,因为一件商品在库存中有很多数量，对应的购买明细也有很多。
     private Seckill seckill;
 
     public Seckill getSeckill() {
@@ -18,16 +21,6 @@ public class SuccessKilled implements Serializable {
 
     public void setSeckill(Seckill seckill) {
         this.seckill = seckill;
-    }
-
-    @Override
-    public String toString() {
-        return "SuccessKilled{" +
-                "seckillId=" + seckillId +
-                ", userPhone=" + userPhone +
-                ", state=" + state +
-                ", creatTime=" + creatTime +
-                '}';
     }
 
     public Long getSeckillId() {
@@ -46,19 +39,29 @@ public class SuccessKilled implements Serializable {
         this.userPhone = userPhone;
     }
 
-    public int getState() {
+    public Short getState() {
         return state;
     }
 
-    public void setState(short state) {
+    public void setState(Byte state) {
         this.state = state;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SuccessKilled{" +
+                "state=" + state +
+                ", createTime=" + createTime +
+                ", seckillId=" + seckillId +
+                ", userPhone=" + userPhone +
+                '}';
     }
 }

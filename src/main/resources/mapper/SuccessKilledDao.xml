@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.seckill.dao.SuccessKilledDao">
 
     <insert id="insertSuccessKilled">
-        <!--主键冲突，报错-->
-        insert ignore into success_killed(seckill_id, user_phone, state)
-        values (#{seckillId}, #{userPhone}, 0)
+        <!--当出现主键冲突时(即重复秒杀时)，会报错;不想让程序报错，加入ignore-->
+        INSERT ignore INTO success_killed(seckill_id,user_phone,state)
+        VALUES (#{seckillId},#{userPhone},0)
     </insert>
 
     <select id="queryByIdWithSeckill" resultType="com.seckill.entity.SuccessKilled">
-        <!--根据 id 查询 SuccessKilled 并携带 Seckill 实体-->
-        <!--如何告诉 MyBatis 把结果映射到 SuccessKilled的同时映射 seckill属性-->
-        <!--可以自由控制 SQL-->
-        select
+
+        <!--根据seckillId查询SuccessKilled对象，并携带Seckill对象-->
+        <!--如何告诉mybatis把结果映射到SuccessKill属性同时映射到Seckill属性-->
+        <!--可以自由控制SQL语句-->
+        SELECT
         sk.seckill_id,
         sk.user_phone,
         sk.create_time,
         sk.state,
         s.seckill_id "seckill.seckill_id",
         s.name "seckill.name",
-        s.number "seckill.number",
+        s.number "seckill",
         s.start_time "seckill.start_time",
         s.end_time "seckill.end_time",
         s.create_time "seckill.create_time"
-        from success_killed sk
-        inner join seckill s on sk.seckill_id = s.seckill_id
-        where sk.seckill_id = #{seckillId}
-        and sk.user_phone = #{userPhone}
+        FROM success_killed sk
+        INNER JOIN seckill s ON sk.seckill_id=s.seckill_id
+        WHERE sk.seckill_id=#{seckillId}
+        AND sk.user_phone=#{userPhone}
     </select>
+
 </mapper>
