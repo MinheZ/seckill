@@ -105,7 +105,6 @@ public class SeckillController {
 
     }
 
-
     //获取系统时间
     @RequestMapping(value = "/time/now", method = RequestMethod.GET)
     @ResponseBody

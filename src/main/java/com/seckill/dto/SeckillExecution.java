@@ -2,6 +2,7 @@ package com.seckill.dto;
 
 import com.seckill.entity.SuccessKilled;
 import com.seckill.enums.SeckillStatEnum;
+import com.seckill.enums.SeckillStateEnums;
 
 /**
  * 封装执行秒杀后的结果:是否秒杀成功
@@ -19,10 +20,10 @@ public class SeckillExecution {
     private SuccessKilled successKilled;
 
     //秒杀成功返回所有信息
-    public SeckillExecution(long seckillId, SeckillStatEnum statEnum, SuccessKilled successKilled) {
+    public SeckillExecution(long seckillId, SeckillStateEnums statEnum, SuccessKilled successKilled) {
         this.seckillId = seckillId;
         this.state = statEnum.getState();
-        this.stateInfo = statEnum.getInfo();
+        this.stateInfo = statEnum.getStateInfo();
         this.successKilled = successKilled;
     }
 

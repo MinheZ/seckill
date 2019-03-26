@@ -5,6 +5,8 @@ import com.seckill.dao.SuccessKilledDao;
 import com.seckill.dto.Exposer;
 import com.seckill.dto.SeckillExecution;
 import com.seckill.entity.Seckill;
+import com.seckill.entity.SuccessKilled;
+import com.seckill.enums.SeckillStateEnums;
 import com.seckill.exception.RepeatKillException;
 import com.seckill.exception.SeckillCloseException;
 import com.seckill.exception.SeckillException;
@@ -13,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +33,7 @@ public class SeckillServiceImpl implements SeckillService {
     private SuccessKilledDao successKilledDao;
 
     // 加入一个混淆字符串(秒杀接口)的salt，为了避免用户猜出我们的md5值，值任意给，越复杂越好，不可逆
-    private final String slat = "Hjdipueh7*&^*&%dhulkne123";
+    private final String salt = "Hjdipueh7*&^*&%dhulkne123";
 
     public List<Seckill> getSeckillList() {
         return seckillDao.queryAll(0, 4);
@@ -61,17 +65,49 @@ public class SeckillServiceImpl implements SeckillService {
             return new Exposer(false, seckillId, nowTime.getTime(),
                     startTime.getTime(), endTime.getTime());
         }
-
-        String md5 = null;
+        // MD5不可逆
+        String md5 = getMD5(seckillId);
         return new Exposer(true, md5, seckillId);
     }
 
     private String getMD5(Long seckillId) {
-        
+        String base = seckillId + "/" + salt;
+        String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
+        return md5;
     }
 
-    public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException, RepeatKillException, SeckillCloseException {
-        return null;
+    @Transactional
+    public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
+            throws SeckillException, RepeatKillException, SeckillCloseException {
+        if (md5 == null || !md5.equals(getMD5(seckillId))) {
+            throw new SeckillException("seckill had been modified!");
+        }
+        // 执行秒杀业务逻辑：减库存 + 记录购买行为
+        Date nowTime = new Date();
+        try {
+            int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
+            if (updateCount <= 0) {
+                throw new SeckillCloseException("seckill is closed!");
+            } else {
+                // 记录购买行为
+                int insertCount = successKilledDao.insertSuccessKilled(seckillId, userPhone);
+                if (insertCount <= 0) {
+                    throw new RepeatKillException("seckill repeated!");
+                } else {
+                    SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+                    return new SeckillExecution(seckillId, SeckillStateEnums.SUCCESS, successKilled);
+                }
+            }
+        } catch (RepeatKillException r) {
+            logger.error(r.getMessage(), r);
+            throw r;
+        } catch (SeckillCloseException c) {
+            logger.error(c.getMessage(), c);
+            throw c;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new SeckillException("seckill inner error: " + e.getMessage());
+        }
     }
 
     public SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5) {
