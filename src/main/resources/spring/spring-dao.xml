@@ -9,6 +9,7 @@
     <!--配置整合mybatis过程
     1.配置数据库相关参数-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:redis.properties"/>
 
     <!--2.数据库连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -53,10 +54,11 @@
         <!-- 给出需要扫描的Dao接口-->
         <property name="basePackage" value="com.seckill.dao"/>
     </bean>
+
     <!--注入redisDao-->
-    <!--<bean id="redisDao" class="com.seckill.dao.cache.RedisDao">-->
-        <!--&lt;!&ndash;构造方法注入值&ndash;&gt;-->
-        <!--<constructor-arg index="0" value="192.168.25.128"/>-->
-        <!--<constructor-arg index="1" value="6379"/>-->
-    <!--</bean>-->
+    <bean id="redisDao" class="com.seckill.dao.cache.RedisDao">
+        <!--构造方法注入值-->
+        <constructor-arg index="0" value="192.168.1.200"/>
+        <constructor-arg index="1" value="6385"/>
+    </bean>
 </beans>
