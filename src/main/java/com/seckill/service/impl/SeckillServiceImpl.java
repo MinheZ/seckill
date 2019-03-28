@@ -2,6 +2,7 @@ package com.seckill.service.impl;
 
 import com.seckill.dao.SeckillDao;
 import com.seckill.dao.SuccessKilledDao;
+import com.seckill.dao.cache.JedisClientCluster;
 import com.seckill.dao.cache.RedisDao;
 import com.seckill.dto.Exposer;
 import com.seckill.dto.SeckillExecution;
@@ -38,6 +39,9 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Autowired
     private RedisDao redisDao;
+
+    @Autowired
+    private JedisClientCluster jedisClient;
 
     // 加入一个混淆字符串(秒杀接口)的salt，为了避免用户猜出我们的md5值，值任意给，越复杂越好，不可逆
     private final String salt = "Hjdipueh7*&^*&%dhulkne123";
@@ -87,7 +91,7 @@ public class SeckillServiceImpl implements SeckillService {
         }
     }
 
-    private Exposer isExportUrl(Seckill seckill) {
+    private final Exposer isExportUrl(Seckill seckill) {
         Date startTime = seckill.getStartTime();    // 秒杀开始时间
         Date endTime = seckill.getEndTime();        // 秒杀结束时间
         Date nowTime = new Date();                  // 当前时间

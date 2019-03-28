@@ -30,42 +30,45 @@ public class SeckillServiceTest {
         List<Seckill> list = seckillService.getSeckillList();
         logger.info("list={}", list);
     }
+
     @Test
     public void getByIdTest() {
         long id = 1000L;
         Seckill seckill = seckillService.getById(id);
-        logger.info("seckill={}",seckill);
+        logger.info("seckill={}", seckill);
     }
+
     @Test
     public void exportSeckillLogicTest() {
         long id = 1001L;
         Exposer exposer = seckillService.exportSeckillUrl(id);
         if (exposer.isExposed()) {
-            logger.info("exposer={}",exposer);
+            logger.info("exposer={}", exposer);
             long phone = 12345678902L;
             String md5 = exposer.getMd5();
             try {
                 SeckillExecution execution = seckillService.executeSeckill(id, phone, md5);
                 logger.info("result={}", execution);
-            }catch (RepeatKillException r) {
+            } catch (RepeatKillException r) {
                 logger.error(r.getMessage());
-            }catch (SeckillCloseException seckillCloseException) {
+            } catch (SeckillCloseException seckillCloseException) {
                 logger.error(seckillCloseException.getMessage());
             }
-        }else {
+        } else {
             logger.warn("exposer={}", exposer);
         }
     }
+
     @Test
     public void executeSeckillProcedure() {
         long seckillId = 1001L;
         long phone = 12345678903L;
         Exposer exposer = seckillService.exportSeckillUrl(seckillId);
         if (exposer.isExposed()) {
-            logger.info("exposer={}",exposer);
+            logger.info("exposer={}", exposer);
             String md5 = exposer.getMd5();
-                SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);
-                logger.info(execution.getStateInfo());
+            SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);
+            logger.info(execution.getStateInfo());
         }
     }
 

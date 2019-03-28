@@ -1,4 +1,4 @@
-# seckill
+# seckill :bullettrain_front:
 
 * [1 秒杀系统业务分析](1-秒杀系统业务分析)
 * [2 开发环境](#2-开发环境)
@@ -7,6 +7,8 @@
   * [4.1 数据库建表](#4.1-数据库建表)
   * [4.2 DAO实体和接口开发](#4.2-DAO实体和接口开发)
   * [4.3 Service层开发](#4.3-Service层开发)
+  * [4.4 Controller层开发](#4.4-Controller层开发)
+* [5 并发优化](#5-并发优化)
 
 -----------------------------
 
@@ -75,22 +77,62 @@ jdbc.password=****
 
 ### 4.3 Service层开发
 
-新建一个 [SeckillService](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/service/SeckillService.java) 的接口，完成秒杀业务逻辑的一些方法。
+ [SeckillService](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/service/SeckillService.java) 接口开发，完成秒杀业务逻辑的一些方法。
+
+```java
+List<Seckill> getSeckillList();	// 获取秒杀列表
+
+Seckill getById(long seckillId);	// 通过 ID 获取秒杀对象
+
+Exposer exportSeckillUrl(long seckillId);	// 判断是否需要暴露秒杀接口
+
+// 执行秒杀操作
+SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
+            throws SeckillException, RepeatKillException, SeckillCloseException;
+// 秒杀存储过程优化
+SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5);
+```
 
 业务逻辑为，当秒杀开始前，秒杀页面只显示秒杀商品类型和倒计时。只有当秒杀开始的时候，才暴露秒杀地址，防止脚本提前登录。
 
-定义一个 Exposer 类来实现此功能。主要是通过比较系统当前时间与秒杀开始和结束的时间，
+定义一个 [Exposer](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/dto/Exposer.java) 类来实现此功能。主要是通过比较系统当前时间与秒杀开始和结束的时间。
 
-<div align="center"><img src="pics//1553561741(1).png" width="500px"></div>
+定义一个 [SeckillExecution](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/dto/SeckillExecution.java) 类来封装秒杀操作之后的结果。其中用枚举类型 [SeckillStatEnum ](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/enums/SeckillStatEnum.java) 封装秒杀过程之后的各种状态，例如：成功、失败等。
 
-详情页流程逻辑
+具体的实现类 [SeckillServiceImpl](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/service/impl/SeckillServiceImpl.java) 也就是对数据库的一些增删改查，包括对秒杀接口暴露，判断秒杀状态等一些列方法的具体实现。这里要注意 `executeSeckill` 方法的事务性，该操作必须是原子的。
+
+### 4.4 Controller层开发
+
+首先明确 [SeckillController](https://github.com/MinheZ/seckill/blob/master/src/main/java/com/seckill/web/SeckillController.java) 业务流程：
+
+<div align="center"><img src="pics//1553561741(1).png" width="400px"></div>
+
+详情页流程逻辑：
 
 <div align="center"><img src="pics//1553561891(1).png" width="500px"></div>
 
-Restful 规范：
+一般来说，Controller 层的 URL 表达方式默认使用 Restful 规范：
 
 - GET -> 查询操作
 - POST -> 添加/修改操作
 - PUT -> 修改操作（幂等操作）
 - DELETE -> 删除操作
+
+下图为秒杀 API 的 URL 设计：
+
+<div align="center"><img src="pics//1553562354(1).png" width="500px"></div>
+
+由于笔者是个前端菜鸡，因此页面那些东西就不在这里误人子弟了:non-potable_water:。
+
+## 5 并发优化
+
+在优化之前，首先弄清楚秒杀的高并发发生在哪？如下图，红色部分代表可能会有高并发区域：
+
+<div align="center"><img src="pics//1553603148(1).png" width="350px"></div>
+
+**详情页**：参与秒杀的第一步，所有参与用户都会访问此页面。
+
+**系统时间**：在进行当前时间与秒杀开始时间对比的过程中，由于系统访问一次内存的时间(Cacheline)非常短，大约是10ns，因此这一部分可以不做具体优化。
+
+**地址暴露接口**：使用服务端缓存：Redis等。
 

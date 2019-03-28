@@ -102,7 +102,6 @@ public class SeckillController {
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);
             return new SeckillResult<SeckillExecution>(true, execution);
         }
-
     }
 
     //获取系统时间
