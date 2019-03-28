@@ -38,7 +38,7 @@ public class SeckillServiceTest {
     }
     @Test
     public void exportSeckillLogicTest() {
-        long id = 1000L;
+        long id = 1001L;
         Exposer exposer = seckillService.exportSeckillUrl(id);
         if (exposer.isExposed()) {
             logger.info("exposer={}",exposer);
@@ -55,6 +55,31 @@ public class SeckillServiceTest {
         }else {
             logger.warn("exposer={}", exposer);
         }
+    }
+    @Test
+    public void executeSeckillProcedure() {
+        long seckillId = 1001L;
+        long phone = 12345678903L;
+        Exposer exposer = seckillService.exportSeckillUrl(seckillId);
+        if (exposer.isExposed()) {
+            logger.info("exposer={}",exposer);
+            String md5 = exposer.getMd5();
+                SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);
+                logger.info(execution.getStateInfo());
+        }
+    }
 
+    @Test
+    public void tryCatch() {
+        int a = 1;
+        int b = 2;
+        int c;
+        try {
+            c = a / 0;
+            System.out.println(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(a + b);
     }
 }
