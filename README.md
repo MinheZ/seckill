@@ -134,5 +134,5 @@ SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String 
 
 **系统时间**：在进行当前时间与秒杀开始时间对比的过程中，由于系统访问一次内存的时间(Cacheline)非常短，大约是10ns，因此这一部分可以不做具体优化。
 
-**地址暴露接口**：使用服务端缓存：Redis等。
+**地址暴露接口**：使用服务端缓存：Redis 集群。
 
