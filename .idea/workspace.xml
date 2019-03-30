@@ -688,11 +688,11 @@
     <list>
       <item itemvalue="JUnit.SeckillServiceTest.exportSeckillLogicTest" />
       <item itemvalue="JUnit.RedisDaoTest.getSeckill" />
-      <item itemvalue="Maven.seckill [clean,tomcat7:run]" />
-      <item itemvalue="Tomcat Server.seckill" />
       <item itemvalue="JUnit.SeckillServiceTest.executeSeckillProcedure" />
       <item itemvalue="JUnit.SeckillServiceTest.tryCatch" />
       <item itemvalue="JUnit.JedisClientClusterTest.set" />
+      <item itemvalue="Maven.seckill [clean,tomcat7:run]" />
+      <item itemvalue="Tomcat Server.seckill" />
     </list>
     <recent_temporary>
       <list>
