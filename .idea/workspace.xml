@@ -6,18 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60f2d8b0-97fc-488f-bfe2-617718ed64f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/1553604229(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/seckill/service/impl/SeckillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seckill/service/impl/SeckillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/sql/seckill.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/sql/seckill.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/seckill/dao/cache/RedisDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/seckill/dao/cache/RedisDaoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/seckill/dao/cache/JedisClientCluster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/seckill/dao/cache/JedisClientCluster.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/seckill/service/impl/SeckillServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/seckill/service/impl/SeckillServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/seckill/dao/cache/RedisDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/seckill/dao/cache/RedisDaoTest.class" afterDir="false" />
-    </list>
+    <list default="true" id="60f2d8b0-97fc-488f-bfe2-617718ed64f2" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +52,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/sql/seckill.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
+            <state relative-caret-position="1222">
               <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
             </state>
           </provider>
@@ -227,7 +216,7 @@
   <component name="MavenRunner">
     <option name="jreName" value="11" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -439,7 +428,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554084163808" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554084182750" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect" value="MySQL" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -701,7 +690,7 @@
       <workItem from="1553503795981" duration="52065000" />
       <workItem from="1553668298226" duration="1587000" />
       <workItem from="1553736421365" duration="17516000" />
-      <workItem from="1553926833188" duration="1957000" />
+      <workItem from="1553926833188" duration="2572000" />
     </task>
     <servers />
   </component>
@@ -738,7 +727,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92321000" />
+    <option name="totallyTimeSpent" value="92936000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1185,7 +1174,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/sql/seckill.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
+        <state relative-caret-position="1222">
           <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>

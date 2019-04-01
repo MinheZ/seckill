@@ -1,6 +1,6 @@
 # seckill :bullettrain_front:
 
-* [1 秒杀系统业务分析](1-秒杀系统业务分析)
+* [1 秒杀系统业务分析](#1-秒杀系统业务分析)
 * [2 开发环境](#2-开发环境)
 * [3 工程创建](#3-工程创建)
 * [4 业务实现](#4-业务实现)
@@ -157,8 +157,9 @@ SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String 
 **优化思路**：
 
 - 把客户端逻辑放到 MySQL 服务端，避免网络延迟和 GC 的影响。
-
   - 定制 SQL 方案：update /* + [suto_commit] */，需要修改 MySQL 源码。
   - 使用存储过程：整个事务在 MySQL 端完成。[seckill.sql](https://github.com/MinheZ/seckill/blob/master/src/main/sql/seckill.sql)
 
-  
+本项目学习自[慕课网](https://www.imooc.com/u/2145618/courses?sort=publish&skill_id=220)。
+
+----------------------------
