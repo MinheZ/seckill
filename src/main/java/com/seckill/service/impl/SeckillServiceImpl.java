@@ -91,7 +91,7 @@ public class SeckillServiceImpl implements SeckillService {
         }
     }
 
-    private final Exposer isExportUrl(Seckill seckill) {
+    private Exposer isExportUrl(Seckill seckill) {
         Date startTime = seckill.getStartTime();    // 秒杀开始时间
         Date endTime = seckill.getEndTime();        // 秒杀结束时间
         Date nowTime = new Date();                  // 当前时间
@@ -106,7 +106,7 @@ public class SeckillServiceImpl implements SeckillService {
         return new Exposer(true, md5, seckill.getSeckillId());
     }
 
-    private final String getMD5(Long seckillId) {
+    private String getMD5(Long seckillId) {
         String base = seckillId + "/" + salt;
         String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
         return md5;
@@ -177,29 +177,3 @@ public class SeckillServiceImpl implements SeckillService {
         }
     }
 }
-/*
-* Seckill seckill = redisDao.getSeckill(seckillId);
-        if (seckill == null) {
-            // 缓存为空，则访问数据库
-            seckill = seckillDao.queryById(seckillId);
-            if (seckill == null) {  // 数据库也未命中
-                return new Exposer(false, seckillId);
-            } else {
-                redisDao.putSeckill(seckill);
-            }
-        }
-
-        Date startTime = seckill.getStartTime();    // 秒杀开始时间
-        Date endTime = seckill.getEndTime();        // 秒杀结束时间
-        Date nowTime = new Date();                  // 当前时间
-
-        // 判断当前时间是否在秒杀时间之内
-        if (nowTime.getTime() < startTime.getTime() || nowTime.getTime() > endTime.getTime()) {
-            return new Exposer(false, seckillId, nowTime.getTime(),
-                    startTime.getTime(), endTime.getTime());
-        }
-        // MD5不可逆
-        String md5 = getMD5(seckillId);
-        return new Exposer(true, md5, seckillId);
-*
-* */

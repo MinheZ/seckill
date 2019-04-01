@@ -18,11 +18,10 @@ public class RedisDaoTest {
     @Autowired
     private SeckillDao seckillDao;
 
-    private Long id = 1000L;
-
     @Test
     public void getSeckill() {
         // get and put
+        Long id = 1000L;
         Seckill seckill = redisDao.getSeckill(id);
         if (seckill == null) {
             seckill = seckillDao.queryById(id);

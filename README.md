@@ -126,6 +126,8 @@ SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String 
 
 ## 5 并发优化
 
+### 5.1 缓存优化
+
 在优化之前，首先弄清楚秒杀的高并发发生在哪？如下图，红色部分代表可能会有高并发区域：
 
 <div align="center"><img src="pics//1553603148(1).png" width="350px"></div>
@@ -140,5 +142,23 @@ SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String 
 
 <div align="center"><img src="pics//1553603931(1).png" width="350px"></div>
 
+键值上设置过期时间，超时穿透；或者每当数据库变更时，主动更新至缓存。
 
+### 5.2 数据库优化
 
+业务逻辑中原始数据落地的方法：
+
+<div align="center"><img src="pics//1553604430(1).png" width="350px"></div>
+
+数据库行级锁持有的时间（最差）：(update + 网络延迟 + GC)  +  (insert + 网络延迟 + GC) 。GC 的 Stop the World 时长大概在 50ms 左右，当系统中并发量越高，GC 就越频繁。
+
+**优化的方向**：如何减少行级锁持有的时间？
+
+**优化思路**：
+
+- 把客户端逻辑放到 MySQL 服务端，避免网络延迟和 GC 的影响。
+
+  - 定制 SQL 方案：update /* + [suto_commit] */，需要修改 MySQL 源码。
+  - 使用存储过程：整个事务在 MySQL 端完成。[seckill.sql](https://github.com/MinheZ/seckill/blob/master/src/main/sql/seckill.sql)
+
+  

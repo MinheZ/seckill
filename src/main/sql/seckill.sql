@@ -1,6 +1,6 @@
 -- 秒杀执行存储过程
 
-DELIMITER $$-- console ; 转换为 $$
+DELIMITER $$ -- console ; 转换为 $$
 -- 定义存储过程
 -- 参数： in 输入参数； out 输出参数
 -- row_count(): 返回上一条修改类型sql的影响行数
