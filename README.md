@@ -162,4 +162,4 @@ SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String 
 
 本项目学习自[慕课网](https://www.imooc.com/u/2145618/courses?sort=publish&skill_id=220)。
 
-----------------------------
+有任何疑问欢迎提 issues 一起交流、探讨，或者直接联系我 1191357474@qq.com 
