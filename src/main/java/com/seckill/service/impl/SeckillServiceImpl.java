@@ -83,12 +83,9 @@ public class SeckillServiceImpl implements SeckillService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        Seckill seckill = seckillDao.queryById(seckillId);
-        if (seckill == null) {  // 数据库也未命中
-            return new Exposer(false, seckillId);
-        } else {
-            return isExportUrl(seckill);
-        }
+        // 已经从缓存取到了对象
+        return isExportUrl(seckill);
+        
     }
 
     private Exposer isExportUrl(Seckill seckill) {
